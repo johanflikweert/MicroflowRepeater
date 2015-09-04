@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="MicroflowRepeater.widget.MicroflowRepeater" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>MicroflowRepeater</name>
+    <description>This MicroflowRepeater repeats a microflow in the context of an entity. It can be time-based, like the MicroflowTimer, but also on callback such that the microflow is not invoked when it is still running. Furthermore, custom javascript can be run on callback when the microflow is finished.</description>
+    <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABA0lEQVQ4jZ3TMSuFYRjG8R9KBoPJ4Mggi4FNFmVBisWMVTZJWRgw+gLKJ5AvwMB8lMFgkcxKWKRzEp1jOPfJQ+/7Olz1DO/1Xv/ree7hpljtuMcWun/JfoPmcIhT1OM8YB1dRfA4rhMo6xznwbOoJMEnnCXfN1hERxY8hJcIVrGGzhinjOU8sKmjgN8xXRTMUg/eouDgrzDM+Jpz4j8FS0lBqUVmBRvohfmkYKQFeDjJL8AAamFst1CwmRQMNs1yGM9RmKcSHiN7kf6YSl5xi9EMeAx3kalh8mdgJ3naB07C28V5ckE9/Eyt4lX+HlQ1FqqtYEz92MeVxm5UcIk99P0MfwIudVSKXmEAFwAAAABJRU5ErkJggg==</icon>
+
+    <properties>
+        <property key="timeout" type="integer" defaultValue="1000">
+            <caption>Timeout (in ms)</caption>
+            <category>Behaviour</category>
+            <description>Defines the timeout in miliseconds before the microflow is called after it finished. Note that the process time of the microflow called is excluded, so when applying 'Repeat on callback' it is invoked a bit later and it is not the exact interval.
+            </description>
+        </property>
+        <property key="execute_once" type="boolean" defaultValue="false">
+            <caption>Execute once</caption>
+            <category>Behaviour</category>
+            <description>If true, the microflow will be invoked only once, and timeout defines after how many miliseconds.</description>
+        </property>
+        <property key="start_at_once" type="boolean" defaultValue="true">
+            <caption>Start at once</caption>
+            <category>Behaviour</category>
+            <description>If true, the first time the microflow will be invoked when the widget has loaded (without timeout). If false, the first time the microflow will be invoked is after the timeout has passed. When both 'Execute once' and 'Start at once' are set to true, the 'Timeout' setting has no effect.</description>
+        </property>
+        <property key="repeat_on_callback" type="boolean" defaultValue="true">
+            <caption>Repeat on timeout</caption>
+            <category>Behaviour</category>
+            <description>If true, the next repetition will be called after the previous has finished. The time to process the microflow will delay the next repetition, but it will not be invoked while the previous run is not finished. 
+If false, the behaviour is similar to the MicroflowTimer widget: the Microflow will be invoked on interval (time-based) without waiting for the result. 
+This setting does not apply when 'Execute once' is set to true.</description>
+        </property>
+        <property key="microflow" type="microflow" required="true">
+            <caption>Microflow</caption>
+            <category>Behaviour</category>
+            <description>The microflow to be executed. If the microflow returns false, it will not be executed any longer until the context changes.</description>
+            <returnType type="Boolean" />
+        </property>
+        <property key="callback_js" type="translatableString" multiline="true" required="false">
+            <caption>Callback Javascript</caption>
+            <category>Behaviour</category>
+            <description>Javascript to run on callback of the microflow. You may use the boolean variable 'result' for the result of the microflow.</description>
+        </property>
+    </properties>
+</widget>
+
